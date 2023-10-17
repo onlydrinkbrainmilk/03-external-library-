@@ -38,6 +38,10 @@ function setup() {
   button1.position (30,270);
   button1.mousePressed(knifeSliding);
 
+  button1=createButton('a random note');
+  button1.position (30,300);
+  button1.mousePressed(randomNotes);
+
   volumeSlider = createSlider(-20,20,0);
   volumeSlider.position(300, 60);
   volumeSlider.style('width', '80px');
@@ -121,3 +125,22 @@ function knifeSliding(){
  // effect3.toMaster();
    image(img3, 350,300);
  }
+
+ function randomNotes(){
+  let volumeVal = volumeSlider.value();
+   let feedbackVal= feedbackSlider.value();
+   let distortionVal = reverbSlider.value();
+   
+   const volume = new Tone.Volume(volumeVal);
+   const feedback = new Tone.FeedbackDelay(feedbackVal,0.5);
+   const distortion = new Tone.Distortion(distortionVal);
+   
+ const synth = new Tone.PolySynth();
+ synth.set({ detune: -1200 });
+ synth.triggerAttackRelease(["C4", "E4", "A4"], 1);
+ synth.connect(volume);
+ volume.connect(feedback);
+ feedback.connect(distortion);
+ distortion.toMaster();
+}
+ 
