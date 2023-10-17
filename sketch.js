@@ -15,7 +15,7 @@ function setup() {
   fill(164, 14, 14 );
   textSize(20)
   textStyle(BOLD);
-  text('create your own horror sound:', 20,40)
+  text('create your own horror halloween sound:', 20,40)
   textStyle(NORMAL);
   text('please set the volume:', 20,80)
   text('please set the feedback:', 20, 100)
