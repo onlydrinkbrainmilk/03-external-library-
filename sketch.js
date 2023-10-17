@@ -5,7 +5,8 @@ let reverbSlider;
 
 function preload() {
   img1 = loadImage('radicals/雨.png');
-  img2 = loadImage('radicals/子.png')
+  img2 = loadImage('radicals/子.png');
+  img3 = loadImage('radicals/knife.png');
 }
 
 function setup() {
@@ -32,7 +33,11 @@ function setup() {
   button2=createButton('children playing')
   button2.position(30,240);
   button2.mousePressed(childrenPlaying);
-  
+
+  button1=createButton('knife sliding');
+  button1.position (30,270);
+  button1.mousePressed(knifeSliding);
+
   volumeSlider = createSlider(-20,20,0);
   volumeSlider.position(300, 60);
   volumeSlider.style('width', '80px');
@@ -65,7 +70,7 @@ volume.connect(feedback);
 feedback.connect(distortion);
 distortion.toMaster();
 
-image(img1,300,200); 
+image(img1,300,230); 
  }
 
 
@@ -90,5 +95,29 @@ distortion.toMaster();
 // effect1.connect(effect2);
 // effect2.connect(effect3);
 // effect3.toMaster();
-  image(img2, 300,300);
+  image(img2, 260,300);
 }
+
+function knifeSliding(){
+  let volumeVal = volumeSlider.value();
+   let feedbackVal= feedbackSlider.value();
+   let distortionVal = reverbSlider.value();
+   
+   const volume = new Tone.Volume(volumeVal);
+   const feedback = new Tone.FeedbackDelay(feedbackVal,0.5);
+   const distortion = new Tone.Distortion(distortionVal);
+   
+ const player2 = new Tone.Player("sounds/knifeSliding.mp3");
+ Tone.loaded().then(() => {
+   player2.start();
+ });
+ player2.connect(volume);
+ volume.connect(feedback);
+ feedback.connect(distortion);
+ distortion.toMaster();
+ 
+ // effect1.connect(effect2);
+ // effect2.connect(effect3);
+ // effect3.toMaster();
+   image(img3, 350,300);
+ }
